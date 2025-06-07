@@ -4,6 +4,78 @@
 \section{Ergänzugen/Wiederholung Wahrscheinlichkeitstheorie}
 
 \subsection{Gesetz der großen Zahlen}
+\begin{colbox}{Lemma}[Ungleichung von Markov]\label{lem:markovUng}\ \\
+    Es sei $X$ eine integrierbare Zufallsgröße, d.\,h. $\E|X|<\infty$, dann gilt für alle $\epsilon>0$:
+    \[
+    \P\big(\{\omega:|X(\omega)|\geq\epsilon\}\big) \leq \frac{1}{\epsilon}\E|X|
+    \]
+\end{colbox}
+\textit{Beweis.} \\
+Verwenden wir die Definition des Erwartungswertes mittels Stieltjes-Integral so ergibt sich die Ungleichung durch 
+Anwendung der Linearität und Montonie des Integrals:
+\begin{align*}
+    \E|X| &= \int_{\R} |x| \, \diff F_X(x) \\
+    &= \underbrace{\int_{\{x:|x|<\epsilon\}} |x| \, \diff F_X(x)}_{\geq 0} + 
+    \int_{\{x:|x|\geq\epsilon\}} |x| \, \diff F_X(x) \\
+    &\geq \int_{\{x:|x|\geq\epsilon\}} |x| \, \diff F_X(x) \\
+    &\geq \int_{\{x:|x|\geq\epsilon\}} \epsilon \, \diff F_X(x) \\
+    &= \epsilon\cdot \int_{\{x:|x|\geq\epsilon\}} \diff \mu_X(x) \\
+    &= \epsilon\cdot\mu_X\big(\{x:|x|\geq\epsilon\}\big) \\
+    &= \epsilon\cdot \P\Big(\big\{\omega:X(\omega)\in\{x:|x|\geq\epsilon\}\big\}\Big) \\
+    &= \epsilon\cdot \P\big(\{\omega:|X(\omega)|\geq\epsilon\}\big) 
+\end{align*}
+\qed 
+\begin{colbox}{Bemerkung}
+    Aus Lemma~\ref{lem:markovUng} folgt
+    \begin{align*}
+        \P(|X-\E[X]|\geq\epsilon) &= \P\big( \underbrace{|X-\E[X]|^2}_{\text{neue Zufallsgröße}}\geq\epsilon^2\big) \\
+        &\leq \frac{1}{\epsilon^2}\E|X-\E[X]|^2 \\
+        &= \frac{1}{\epsilon^2} D^2[X]
+    \end{align*}
+\end{colbox}
+Analog lässt sich auch die \emph{Chebyshev Ungleichung} herleiten, für ein beliebiges $p>0$ gilt
+\[\P(|X|\geq\epsilon) \leq \frac{E|X|^p}{\varepsilon^p}\]
+
+\begin{colbox}{Definition}[Stochastische Konvergenz]\ \\
+    Eine Folge $(X_n)$ von Zufallsgrößen \emph{konvergiert stochastisch} (oder in Wahrscheinlichkeit) gegen eine 
+    Zufallsgröße $X$, falls
+    \[
+    \P\big(\{\omega:|X_n(\omega)-X(\omega)|>\epsilon\}\big) 
+    \xrightarrow{n\to\infty} 0\quad\text{für alle }\epsilon \geq 0
+    \]
+    oder dazu äquivalent, falls
+    \[
+    \P\big(\{\omega:|X_n(\omega)-X(\omega)|\leq\epsilon\}\big) 
+    \xrightarrow{n\to\infty} 1\quad\text{für alle } \epsilon > 0
+    \]
+    Wir schreiben im folgenden auch $X_n\conP X$ mit $n\to\infty$.
+\end{colbox}
+\begin{colbox}{Definition}[Definition des schwachen Gesetzes der großen Zahlen]\label{def:schwachesGesetz}\ \\
+    Eine Folge integrierbarer Zufallsgrößen $(X_n)$, d.\,h. $\E|X_n|<\infty\ \forall\,n$ genügt genau dann
+    dem schwachen Gesetz der großen Zahlen, wenn
+    \[
+    \frac{1}{n}\sum_{k=1}^{n}(X_k-\E[X_k]) \conP 0,\quad\text{für }n\to\infty.
+    \]
+\end{colbox}
+Ein Spezialfall bilden hier Beobachtungen: Seien $X_1,\dotsc,X_n$ unabhängige Beobachtungen einer Zufallsgröße $X$, 
+so gilt $\E[X_k]=\E[X]$ und der Term vereinfacht sich durch
+\[
+\frac{1}{n}\sum_{k=1}^{n}(X_k-\E[X_k]) = \frac{1}{n}\sum_{k=1}^{n}X_k-\E[X]
+\]
+\begin{colbox}{Satz}[Schwaches Gesetz der großen Zahlen, $L^1(\Omega,\mathcal{F},\P)$ Version]\ \\
+    Es sei $(X_n)$ eine Folge von Zufallsgrößen $X_n$, welche unabhängig und gleichverteilt wie eine integrierbare
+    Zufallsgröße $X$ sind. 
+    Dann genügt $(X_n)$ dem schwachen Gesetz der großen Zahlen (gemäß Definition~\ref{def:schwachesGesetz}), 
+    d.\,h. konkret, dass
+    \[
+    \frac{1}{n}\sum_{k=1}^{n} X_k \conP \E[X], \quad \text{für } n \to \infty.
+    \]
+\end{colbox}
+\textit{Beweis.}
+
+
+
+
 
 \subsection{Charakteristische Funktionen}
 

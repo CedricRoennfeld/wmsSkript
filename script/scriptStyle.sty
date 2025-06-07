@@ -4,6 +4,8 @@
 % Page layout
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[a4paper, left=2.75cm, right=2.75cm, top=3cm, bottom=3cm]{geometry}
+\setlength{\parindent}{0pt} % No indentation
+\setlength{\parskip}{0.5em} % Vertical space between paragraphs
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Font and input encoding
@@ -30,6 +32,7 @@
 \definecolor{myblue}{RGB}{230,255,255}
 \definecolor{mygreen}{RGB}{230,255,230}
 \definecolor{mygrey}{RGB}{242,242,242}
+\definecolor{myred}{RGB}{255,230,230}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Graphics and plots
@@ -65,6 +68,7 @@
 \usepackage{etoolbox}
 \preto\section{\clearpage\thispagestyle{plain}\vspace*{1cm}}
 \renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+\setcounter{section}{-1}  % starting at section 0
 
 % Section title formatting
 \usepackage{titlesec}
@@ -96,9 +100,12 @@
 
     % Different Colors for different purposes 
     \IfStrEq{#1}{Satz}{\def\BackCol{mygreen}}{
-    \IfStrEq{#1}{Definition}{\def\BackCol{mygreen}}{
-    \IfStrEq{#1}{Beispiel}{\def\BackCol{myblue}}{
-    \def\BackCol{mygreen}}}}
+    \IfStrEq{#1}{Lemma}{\def\BackCol{mygreen}}{
+    \IfStrEq{#1}{Definition}{\def\BackCol{myblue}}{
+    \IfStrEq{#1}{Beispiel}{\def\BackCol{mygrey}}{
+    \IfStrEq{#1}{Bemerkung}{\def\BackCol{mygreen}}{
+    \def\BackCol{myred} 
+    }}}}}
 
     % MDFrame colored Box
     \begin{mdframed}[
@@ -109,14 +116,15 @@
       innerrightmargin=10pt,
       innertopmargin=.6\baselineskip,
       innerbottommargin=.6\baselineskip,
-      splittopskip=2em
+      splittopskip=2em,
+      nobreak=true
     ]
     \IfValueTF{#2}{
       % Show title if exists
-      {\bfseries\sffamily #1 \theboxcounter\ (\sffamily\bfseries #2)\bfseries\sffamily.\\}
+      {\bfseries\sffamily #1 \theboxcounter\ (\sffamily\bfseries #2)\bfseries\sffamily.}
     }{
       % default
-      {\bfseries\sffamily #1 \theboxcounter\bfseries\sffamily.\\}
+      {\bfseries\sffamily #1 \theboxcounter\bfseries\sffamily.}
     }
   }
   {
@@ -135,12 +143,19 @@
 \renewcommand{\P}{\mathbb P}
 \newcommand{\One}{\text{\usefont{U}{bbm}{m}{n}1}}
 
+% Convergence
+\newcommand{\conP}{\xrightarrow{\P}}
+
 % Math Operator
 \DeclareMathOperator{\Var}{Var}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
 
+% Var Symbols
+\renewcommand{\epsilon}{\varepsilon}
+
 % Others
 \newcommand\diff{\mathop{}\!\mathrm{d}}
+\newcommand{\wedgeq}{\overset{\wedge}{=}}
 
 \endinput

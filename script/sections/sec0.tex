@@ -2,3 +2,165 @@
 
 \newpage
 \section{Einleitung}
+
+\subsection*{Motivation}
+
+In der Praxis sind viele Größen, mit denen wir arbeiten, nicht exakt bekannt. 
+Dazu zählen etwa die Wahrscheinlichkeit $\P(A)$ eines Ereignisses $A$, die Verteilungsfunktion $F_X$ einer 
+Zufallsgröße $X$, ihr Erwartungswert $\E[X]$ oder die Varianz $D^2[X]$. (Letztere misst die durchschnittliche Abweichung 
+von $X$ gegenüber ihrem Erwartungswert und dient damit als Maß für das Risiko)
+
+Wenn wir diese Kenngrößen nicht wissen, bleibt uns nichts anderes übrig, als sie anhand von Beobachtungen zu schätzen. 
+Es stellt sich also die grundlegende Frage: Was genau sind Beobachtungen im mathematischen Sinn, 
+und wie lassen sich daraus fundierte Erkenntnisse ableiten?
+
+\begin{colbox}{Beispiel}[Versicherung und Produktion]
+\begin{itemize}
+    \item $X \wedgeq$ Schadenshöhe eines Autos in der Kfz-Versicherung
+    \item $X \wedgeq $ Anzahl fehlerhafter Teile pro Tag in einer Produktionsfirma
+\end{itemize}
+In beiden Fällen kann das jeweilige Unternehmen konkrete Daten beobachten oder messen: Wie hoch sind die Schäden? 
+Wie viele fehlerhafte Teile wurden produziert?
+
+Diese Beobachtungen erlauben Rückschlüsse auf die Verteilung $F$, den Erwartungswert $\E[X]$ 
+und die Varianz $\mathbb{D}^2[X]$ von $X$, Größen welche bei Planung und Vorhersagen essenziell sind.
+\end{colbox}
+
+\subsection*{Was sind Beobachtungen im mathematischen Sinne?}
+
+Formal gesprochen handelt es sich bei Beobachtungen um Zufallsgrößen $X_1, \dots, X_n$, die unabhängig und identisch 
+verteilt sind mit gemeinsamer Verteilungsfunktion $F$. 
+Diese heißen dann \emph{unabhängige Beobachtungen} einer Zufallsgröße $X$ bzw.\ eines zugrunde 
+liegenden Zufallsvorgangs.
+
+Die zugehörigen Realisierungen $x_1, \dots, x_n \in \R$, also konkrete numerische Ergebnisse wie $X_i(\omega) = x_i$ 
+für ein festes, aber unbekanntes $\omega$, nennen wir \emph{konkrete unabhängige} Beobachtungen von $X$.
+
+\begin{colbox}{Beispiel}[Schadensbeobachtung]\ \\
+Eine Versicherung beobachtet $n$ Schäden aus $n$ Unfällen. Die Zufallsgrößen $X_1, \dots, X_n$ sind 
+a priori ungewiss, es ist also im Voraus unbekannt wie hoch ein Schaden sein wird. 
+Sobald alle Unfälle eingetreten sind, erhalten wir dann konkrete Werte $x_1, \dots, x_n$.
+
+Die $x_i$ können als Realisierungen der Schadenshöhen von den Zufallsgrößen $X_i$ interpretiert werden.
+\end{colbox}
+
+\subsubsection*{Wann sind Beobachtungen unabhängig?}
+
+Unabhängigkeit ist dann gegeben, wenn zum Beispiel eine der folgenden Bedingungen erfüllt sind:
+\begin{itemize}
+    \item Stichprobenziehung mit Zurücklegen: Der Auswahlvorgang hat keinen Einfluss auf die Grundgesamtheit.
+    \item Jedes Element der Grundgesamtheit hat die gleiche Wahrscheinlichkeit, 
+        in die Stichprobe aufgenommen zu werden (z.\,B.\ bei einer telefonischen Umfrage).
+    \item Es liegt kein Clustering vor, z.\,B.\ nicht nur Fahrgäste einer einzelnen Straßenbahn kontrollieren, 
+        da die $i$-te Ziehung sonst Einfluss auf die $(i+1)$-te Ziehung haben könnte.
+\end{itemize}
+
+\subsection*{Weitere praktische Beispiele}
+
+\begin{colbox}{Beispiel}[Glücksspiel]\ \\
+Ein Spieler wirft eine möglicherweise verzerrte Münze. Abhängig vom Ergebnis erhält er eine Auszahlung $X$:
+\begin{itemize}
+    \item \glqq{}Kopf\grqq{} $\rightarrow$ Gewinn von 2\,€
+    \item \glqq{}Zahl\grqq{} $\rightarrow$ Verlust von 1\,€
+\end{itemize}
+Um zu entscheiden, ob sich die Teilnahme lohnt, müssen wir die Wahrscheinlichkeit $p$ für \glqq{}Kopf\grqq{}, 
+sowie den Erwartungswert des Spiels $\E[X]$ und die zugehörige Varianz $D^2[X]$ kennen.
+\end{colbox}
+
+\begin{colbox}{Beispiel}[Schraubenproduktion]\ \\
+In einem Betrieb werden Schrauben mit Soll-Länge 5\,cm produziert. 
+Zur Qualitätskontrolle entnimmt man $n$ Schrauben aus dem laufenden Prozess. 
+Die $i$-te Messung wird durch die Zufallsgröße $X_i$ beschrieben.
+
+Ziel ist es nun, auf Grundlage dieser Messungen Aussagen über die Verteilung, den Erwartungswert oder die Varianz 
+der Länge $X$ zu treffen.
+\end{colbox}
+
+\subsection*{Verknüpfung zur Wahrscheinlichkeitstheorie}
+
+Die mathematische Statistik baut in vielen Aspekten direkt auf Ergebnissen der Wahrscheinlichkeitstheorie auf. 
+Zu den wichtigsten theoretischen Sätzen gehören:
+
+\begin{itemize}
+    \item \textbf{Gesetz der großen Zahlen}: garantiert Konvergenz des Stichprobenmittels,
+    \item \textbf{Zentrale Grenzwertsatz}: Normalverteilung als Grenzverteilung.
+\end{itemize}
+
+Darüber hinaus benötigen wir weitere wichtige Begriffe der Wahrscheinlichkeitsrechnung:
+\begin{itemize}
+    \item Ereignisse und Wahrscheinlichkeiten
+    \item Zufallsgrößen und deren Verteilungen
+    \item Konvergenzbegriffe für Zufallsgrößen
+    \item charakteristische Funktionen
+    \item Erwartungswert und Varianz
+    \item stochastische Unabhängigkeit
+\end{itemize}
+
+Wir beginnen deshalb mit einer gezielten Wiederholung bzw.\ Erweiterung dieser Konzepte.
+
+\subsubsection*{Zufallsgrößen als messbare Abbildungen}
+
+Eine Zufallsgröße $X$ ist eine Abbildung
+\[
+X \colon \Omega \to \R
+\]
+auf einem Wahrscheinlichkeitsraum $(\Omega, \mathcal{F}, \P)$, wobei $X$ messbar sein muss. 
+Über diese Abbildung lässt sich eine Verteilung auf $\R$ induzieren.
+
+\subsubsection*{Verteilung einer Zufallsgröße}
+
+Die Verteilung $\mu_X$ einer Zufallsgröße $X$ ist das durch $X$ induzierte Maß auf $\R$ definiert:
+\[
+\mu_X(B) := \P\big(\{ \omega \in \Omega \mid X(\omega) \in B \} \big)
+\quad \text{für } B \in \mathcal{B}(\R).
+\]
+Dies ist auch als \emph{Bildmaß} von $\P$ unter $X$ bekannt.
+
+\subsubsection*{Verteilungsfunktion}
+
+Die Verteilungsfunktion $F_X \colon \R \to [0,1]$ ist gegeben durch
+\[
+F_X(x) := \P(X \leq x) = \mu_X\big((-\infty, x]\big).
+\]
+
+\subsubsection*{Erwartungswert als Integral}
+
+Der Erwartungswert einer Zufallsgröße $X$ wird als Lebesgue-Integral definiert:
+\[
+\E[X] := \int_\Omega X(\omega) \, \diff \P(\omega) = \int_{\R} x \, \mu_X(\diff x).
+\]
+
+Dies kann auch als \emph{Stieltjes-Integral} über $F_X$ geschrieben werden kann:
+\[
+\E[X] = \int_\R x \, \diff F_X(x).
+\]
+
+Dieser Zugang erlaubt es, Erwartungswerte und andere Kennzahlen auch für diskrete, 
+stetige oder allgemeinere Verteilungen einheitlich zu behandeln:
+\begin{colbox}{Definition}[Stieltjes-Integral]\ \\
+    Sei $F \colon [a,b] \to \R$ eine monotone, rechtsseitig stetige Funktion 
+    (z.\,B.\ eine Verteilungsfunktion) und $g \colon [a,b] \to \R$ eine beschränkte, stetige Funktion. 
+    Dann definiert man das \emph{Stieltjes-Integral} von $g$ bezüglich $F$ durch
+    \[
+    \int_a^b g(x) \, \diff F(x)
+    \]
+    als den Grenzwert geeigneter Riemann-Stieltjes-Summen: \\
+    Sei $\big((x_i^n)_{i=0}^{N_n}\big)_{n\in\N}$ so gewählt, dass 
+    \[
+    a = x_0^n < x_1^n < \dots < x_{X_N}^n = b 
+    \quad\text{und}\quad
+    \max_{i=0,\dots,N_n-1} |x_{i+1}^n - x_{i}^n|\xrightarrow{n\to\infty}0
+    \]
+    dann definieren wir im Falle der Existenz
+    \[
+    \int_a^b g(x) \, \diff F(x) := \lim_{n\to\infty}\sum_{i=0}^{N_n-1}g(x_i^n)\cdot\big(F(x_{i+1}^n)-F(x_i)^n)\big)
+    \]
+    und das \emph{uneigentliche Stieltjes-Integral} entsprechend durch
+    \[
+    \int_\R g(x)\, \diff F(x) := \lim_{\substack{a\to-\infty \\ b\to\infty}}\int_{a}^{b} \int_a^b g(x) \, \diff F(x)
+    \]
+    
+    Dieses Integral verallgemeinert das gewöhnliche Riemann-Integral, indem nicht über ein Maß 
+    bezüglich der Länge (wie bei $\diff x$), sondern bezüglich der Änderung einer Funktion $F$ integriert wird.
+\end{colbox}
+
