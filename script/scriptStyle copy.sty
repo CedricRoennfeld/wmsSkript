@@ -13,12 +13,6 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
-\usepackage{booktabs}
-
-% No breaks in math mode
-\relpenalty=10000
-\binoppenalty=10000
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Language support
@@ -30,7 +24,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{amsmath, amssymb, amsfonts, amsthm}
 \usepackage{mathtools}
-\usepackage{centernot}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Color definitions
@@ -81,12 +74,14 @@
 \usepackage{titlesec}
 \titleformat*{\section}{\Large\bfseries\sffamily}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Hyperlinks
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{hyperref}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Colored boxes for theorems, definitions, examples
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[framemethod=tikz]{mdframed}
 \usepackage{xparse}
 \usepackage{xstring}
@@ -97,89 +92,45 @@
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Colored boxes for theorems, definitions, examples
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Box Environment
+\NewDocumentEnvironment{colbox}{m o}
+  {
+    % Increase Counter
+    \refstepcounter{boxcounter}
 
-% \NewDocumentEnvironment{colbox}{m o}
-%   {
-%     % Increase Counter
-%     \refstepcounter{boxcounter}
+    % Different Colors for different purposes 
+    \IfStrEq{#1}{Satz}{\def\BackCol{mygreen}}{
+    \IfStrEq{#1}{Lemma}{\def\BackCol{mygreen}}{
+    \IfStrEq{#1}{Korollar}{\def\BackCol{mygreen}}{
+    \IfStrEq{#1}{Definition}{\def\BackCol{myblue}}{
+    \IfStrEq{#1}{Beispiel}{\def\BackCol{mygrey}}{
+    \IfStrEq{#1}{Bemerkung}{\def\BackCol{mygreen}}{
+    \def\BackCol{myred} 
+    }}}}}}
 
-%     % Different Colors for different purposes 
-%     \IfStrEq{#1}{Satz}{\def\BackCol{mygreen}}{
-%     \IfStrEq{#1}{Lemma}{\def\BackCol{mygreen}}{
-%     \IfStrEq{#1}{Korollar}{\def\BackCol{mygreen}}{
-%     \IfStrEq{#1}{Definition}{\def\BackCol{myblue}}{
-%     \IfStrEq{#1}{Beispiel}{\def\BackCol{mygrey}}{
-%     \IfStrEq{#1}{Bemerkung}{\def\BackCol{mygreen}}{
-%     \def\BackCol{myred} 
-%     }}}}}}
-
-%     % MDFrame colored Box
-%     \begin{mdframed}[
-%       backgroundcolor=\BackCol,
-%       linewidth=1pt,
-%       roundcorner=3pt,
-%       innerleftmargin=10pt,
-%       innerrightmargin=10pt,
-%       innertopmargin=.6\baselineskip,
-%       innerbottommargin=.6\baselineskip,
-%       splittopskip=2em,
-%       nobreak=true
-%     ]
-%     \IfValueTF{#2}{
-%       % Show title if exists
-%       {\bfseries\sffamily #1 \theboxcounter\ (\sffamily\bfseries #2)\bfseries\sffamily.}
-%     }{
-%       % default
-%       {\bfseries\sffamily #1 \theboxcounter\bfseries\sffamily.}
-%     }
-%   }
-%   {
-%     \end{mdframed}
-%   }
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Default bold title environments
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\NewDocumentEnvironment{colbox}{m o} 
-{
-  % Increase Counter
-  \refstepcounter{boxcounter}
-  \par\medskip\noindent            % small vertical gap, no indent
-  \IfValueTF{#2}{
-  % Show title if exists
-  {\bfseries\sffamily #1 \theboxcounter\ (\sffamily\bfseries #2)\bfseries\sffamily.}
-  }{
-  % default
-  {\bfseries\sffamily #1 \theboxcounter\bfseries\sffamily.}
+    % MDFrame colored Box
+    \begin{mdframed}[
+      backgroundcolor=\BackCol,
+      linewidth=1pt,
+      roundcorner=3pt,
+      innerleftmargin=10pt,
+      innerrightmargin=10pt,
+      innertopmargin=.6\baselineskip,
+      innerbottommargin=.6\baselineskip,
+      splittopskip=2em,
+      nobreak=true
+    ]
+    \IfValueTF{#2}{
+      % Show title if exists
+      {\bfseries\sffamily #1 \theboxcounter\ (\sffamily\bfseries #2)\bfseries\sffamily.}
+    }{
+      % default
+      {\bfseries\sffamily #1 \theboxcounter\bfseries\sffamily.}
+    }
   }
-  \quad       % a little space after “Definition 1.8.” 
-}
-{
-  \par\medskip                     % close out with a gap
-}
-
-\newcounter{aufgabe}[section]                                 % Zähler ‚aufgabe‘, zurückgesetzt bei jeder neuen section
-\renewcommand{\theaufgabe}{\thesection\Alph{aufgabe}}         % Nummerierung: <Sectionnummer><Großbuchstabe>
-\newenvironment{aufgabe}{%
-  \refstepcounter{aufgabe}%                                     % Zähler hochsetzen und Label-Target setzen
-  \par\noindent\textbf{Aufgabe \theaufgabe.}\\              % fette Beschriftung
-}{%
-  \par
-}
-
-\newcounter{loesung}[subsection]
-\renewcommand{\theloesung}{\arabic{subsection}\Alph{loesung}}
-\newenvironment{loesung}{%
-  \refstepcounter{loesung}% Zähler hochsetzen (\label setzt sich hier)
-  \par\noindent\textbf{Lösung \theloesung.}\\% fette Beschriftung
-}{%
-  \par
-}
+  {
+    \end{mdframed}
+  }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Custom Commands
@@ -190,18 +141,14 @@
 \newcommand{\Z}{\mathbb Z}
 \newcommand{\R}{\mathbb R}
 \newcommand{\E}{\mathbb E}
-\newcommand{\Var}{\mathbb V\mathrm{ar}}
 \renewcommand{\P}{\mathbb P}
 \newcommand{\One}{\text{\usefont{U}{bbm}{m}{n}1}}
 
 % Convergence
 \newcommand{\conP}{\xrightarrow{\P}}
-\newcommand{\conD}{\xrightarrow{d}}
-\newcommand{\conFS}{\xrightarrow{f.s.}}
-\newcommand{\nto}{\xrightarrow{n\to\infty}}
 
 % Math Operator
-%\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Var}{Var}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
 

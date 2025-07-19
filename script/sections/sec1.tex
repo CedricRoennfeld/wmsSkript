@@ -33,8 +33,21 @@ Anwendung der Linearität und Montonie des Integrals:
         &= \frac{1}{\epsilon^2} D^2[X]
     \end{align*}
 \end{colbox}
-Analog lässt sich auch die \emph{Chebyshev Ungleichung} herleiten, für ein beliebiges $p>0$ gilt
+Analog lässt sich auch die \emph{Tschebyscheffsche Ungleichung} herleiten, für ein beliebiges $p>0$ gilt
 \[\P(|X|\geq\epsilon) \leq \frac{E|X|^p}{\varepsilon^p}\]
+
+\begin{colbox}{Definition}[Fast sichere Konvergenz]
+    Gegeben sei ein Wahrscheinlichkeitsraum $(\Omega, \mathcal{F}, \P)$. Eine Folge $(X_n)$ von Zufallsgrößen 
+    konvergiert fast sicher gegen eine Zufallsgröße $X$, falls eine Nullmenge $N\in\mathcal{F}$, d.h. $\P(N)=0$, 
+    existiert, so dass 
+    \[
+        \lim_{n\to\infty} d(X_n(\omega), X(\omega)) = 0 \qquad \text{für alle }\omega \in \Omega\backslash N
+    \]
+    äquivalent dazu konvergiert eine Folge reeller Zufallsgrößen fast sicher, wenn 
+    \[
+        \P\Big(\Big\{\omega\in\Omega\,\Big|\,\lim_{n\to\infty} X_n(\omega)= X(\omega) \Big\}\Big) = 1
+    \] 
+\end{colbox}
 
 \begin{colbox}{Definition}[Stochastische Konvergenz]\ \\
     Eine Folge $(X_n)$ von Zufallsgrößen \emph{konvergiert stochastisch} (oder in Wahrscheinlichkeit) gegen eine 
@@ -48,7 +61,7 @@ Analog lässt sich auch die \emph{Chebyshev Ungleichung} herleiten, für ein bel
     \P\big(\{\omega:|X_n(\omega)-X(\omega)|\leq\epsilon\}\big) 
     \xrightarrow{n\to\infty} 1\quad\text{für alle } \epsilon > 0
     \]
-    Wir schreiben im folgenden auch $X_n\conP X$ mit $n\to\infty$.
+    Wir schreiben im folgenden auch $X_n\conP X$ mit $n\to\infty$ oder sagen, dass $X_n$ mit Wkt. 1 konvergiert.
 \end{colbox}
 \begin{colbox}{Definition}[Definition des schwachen Gesetzes der großen Zahlen]\label{def:schwachesGesetz}\ \\
     Eine Folge integrierbarer Zufallsgrößen $(X_n)$, d.\,h. $\E|X_n|<\infty\ \forall\,n$ genügt genau dann
@@ -71,12 +84,600 @@ so gilt $\E[X_k]=\E[X]$ und der Term vereinfacht sich durch
     \frac{1}{n}\sum_{k=1}^{n} X_k \conP \E[X], \quad \text{für } n \to \infty.
     \]
 \end{colbox}
-\textit{Beweis.}
+\textit{Ohne Beweis.}\\
 
+% Wir schreiben $X_k = X_k^+ - X_k^-$, wobei $X_k^+$ und $X_k^-$ jeweils den Positiv- und Negativteil von $X$ enthalten, 
+% d.h. 
 
+% \[
+%     X_k^+ := \max\{X_k, 0\}, \qquad X_k^- := \max\{-X_k, 0\}
+% \]
+
+% Demnach gilt: 
+
+% \[
+%     \dfrac{1}{n}\sum_{k=1}^{n} (X_k - \E[X_k]) 
+%     = \underbrace{\dfrac{1}{n}\sum_{k=1}^{n} (X_k^+ - \E[X_k^+])}_{=:S_n^+} 
+%     - \underbrace{\dfrac{1}{n}\sum_{k=1}^{n} (X_k^- - \E[X_k^-])}_{=:S_n^+} 
+% \]
+
+% Es genügt nun zu zeigen, dass die einzelnen Summanden $S_n^+$ und $S_n^-$ gegen 0 mit Wkt. 1 konvergieren, damit auch 
+% ihre Differenz es tut. Wir können also o.B.d.A. annehmen, dass $X_i\geq 0$.
+
+% Wir definieren eine neue Zufallsgröße
+
+% \[
+%     \tilde{X}_i := X_i\cdot \One_{\{X_i\leq i\}}
+% \]
+
+% Nun gilt 
+
+% \begin{align*}
+%     \sum_{n=1}^{\infty} \P(X_n \neq \tilde{X}_n) 
+%     &= \sum_{n=1}^{\infty} \P(X_n > n) 
+%     = \sum_{n=1}^{\infty} \P(X > n) 
+%     \leq \sum_{n=1}^{\infty} \P(X \geq n) \\
+%     &= \sum_{n=1}^{\infty} \P(X \geq n) 
+%     = \sum_{n=1}^{\infty}\sum_{k=n}^{\infty} \P(k+1 > X \geq k)
+%     = \sum_{k=1}^{\infty}\sum_{n=1}^{k} \P(k+1 > X \geq k)\\
+%     &= \sum_{k=1}^{\infty}k \cdot \P(k+1 > X \geq k)
+%     = \E\left[\sum_{k=1}^{\infty}k \cdot \P(k+1 > X \geq k)\right]\\
+%     &\leq \E\left[\sum_{k=1}^{\infty}X \cdot \P(k+1 > X \geq k)\right]
+%     = \E[X] < \infty
+% \end{align*}
+
+% Das Lemma von Borel-Cantelli garantiert damit also, dass 
+
+% \[
+%     \P\big(\liminf_{n\to\infty} (X_n \neq \tilde{X}_n)^C\big) = 1
+% \]
+
+% Für uns bedeutet dies, dass für fast alle $\omega\in\Omega$ ein $N_\omega\in\N$ existiert, sodass 
+% $X_n(\omega)=\tilde{X}_n(\omega)$ für alle $n\geq N_\omega$ gilt. Is also $n$ hinreichend groß, dann gilt 
+
+% \[
+%     \dfrac{1}{n}\sum_{k=1}^{n} X_k(\omega) - \dfrac{1}{n}\sum_{k=1}^{n} \tilde{X}_k(\omega) 
+%     = \dfrac{1}{n} \sum_{k=1}^{N_\omega-1} (X_k(\omega)-\tilde{X}_k(\omega))
+% \]
+
+% Da die Summe auf der rechten Seite für ein festes $\omega$ beschränkt sein muss, konvergiert der Term gegen 0 für 
+% $n\to \infty$, d.h. $\tfrac{1}{n}\sum_{k=1}^{n} X_k$ hat den gleichen Grenzwert wie 
+% $\tfrac{1}{n}\sum_{k=1}^{n} \tilde{X}_k$. Es genügt also zu zeigen, dass $\tfrac{1}{n}\sum_{k=1}^{n} \tilde{X}_k$ 
+% gegen $\E X$ mit Wkt. 1 konvergiert.
+
+% Sei hierfür $\varepsilon>0$. Wir definieren $k_n := \lfloor(1+\varepsilon)^n\rfloor$. Wir beginnen zunächst damit 
+% zu zeigen, dass $\tfrac{1}{k_n}\sum_{k=1}^{k_n} \tilde{X}_k$ mit Wkt. 1 gegen  $\E X$ konvergiert (d.h. wir beschränken 
+% uns erst auf die Betrachtung einer Teilfolge und folgern später die Konvergenz für die gesamte Folge).
 
 
 
 \subsection{Charakteristische Funktionen}
 
+Bisher wurden Zufallsgrößen immer entweder durch ihre Verteilungsfunktion oder ihre Verteilungsdichte charakterisiert. 
+Eine weitere solche Charakterisierung bildet die charakteristische Funktion. Sie dient als wichtiges Hilfsmittel 
+für Rechnungen und Beweise (zum Beispiel beim zentralen Grenzwertsatz).
+
+\begin{colbox}{Definition}[Charakteristische Funktion]
+    Sei $X$ eine Zufallsgröße mit Verteilungsfunktion $F$, dann heißt für $t\in\R$ 
+    \[
+        \Psi(t) := \E[e^{itX}] = \int_{-\infty}^{\infty} e^{itx} \diff F(x)
+    \]
+    die charakteristische Funktion von $X$. \\ 
+    
+    Für die Berechnung ergeben sich zwei Fälle: \\
+    Ist $X$ diskret, so gilt 
+    \[
+        \Psi(t) = \sum_{k} e^{itx_k}\cdot p_k, 
+    \]
+    wobei $(x_k)$ die Werte von $X$ mit $p_k = \P(X=x_k)$  sind.\\
+    Ist $X$ absolut stetig, so gilt 
+    \[
+        \Psi(t) = \int_{-\infty}^{\infty}e^{itx}f(x) \diff x,
+    \]
+    wobei $f$ die Dichte von $X$ ist. \\ \\
+    \textit{Im Fall von Zufallsvektoren $\vec{X}=(X_1,\dots,X_n)^T$ wird die charakteristische Funktion über das 
+    Skalarprodukt definiert:}
+    \[
+    \Psi(t) := \E[e^{i\cdot\langle t,\vec{X}\rangle}] \qquad \text{mit } t = (t_1,\dots,t_n)^T
+    \]
+\end{colbox}
+
+Die Eindeutigkeit der charakteristischen Funktion kommt daher, dass sie die Fouriertransformierte der Verteilung 
+von $X$ ist, d.h. im absolutstetigen Fall die Transformation der Funktion $f$ und im diskreten Fall die Transformation
+der Folge $p_k$. Bekannterweise ist die Fouriertransformation invertierbar und damit dient sie als Charakterisierung 
+der Zufallsgröße. Diese Inverse können wir verwenden um aus bekannter charakteristischen Funktion die Dichte / 
+Einzelwahrscheinlichkeiten der zugehörigen Zufallsgröße zu bestimmen:
+
+\begin{colbox}{Satz}[Inverse der charakteristischen Funktion]
+    Sei $X$ eine Zufallsgröße mit charakteristischen Funktion $\Psi$. Dann ergibt sich mittels inverser 
+    Fouriertransformation :
+    \begin{enumerate}
+        \item[i)] 
+        \[
+            f(x) = \dfrac{1}{2\pi}\int_{-\infty}^{\infty}e^{-itx}\Psi(t)\diff t
+        \]
+        \item[ii)] 
+        \[
+            p_k = \lim_{T\to\infty} \dfrac{1}{2T}\int_{-T}^{T}e^{-itx_k}\Psi(t)\diff t
+        \]
+    \end{enumerate}
+    (wieder jeweils im absolutstetigen oder diskreten Fall.)
+\end{colbox}
+\textit{ohne Beweis.}
+
+Es folgen einige wichtige Eigenschaften der charakteristischen Funktion:
+
+\begin{colbox}{Lemma}\label{lem:charEigenschaften}
+    \begin{enumerate}
+        \item Die charakteristische Funktion $\Psi$ ist wohldefiniert.
+        \item $\Psi(0)=1$ und $|\Psi(t)|\leq 1$.
+        \item $\Psi_{aX+b} = e^{itb}\cdot\Psi(at)$ für $a,b,t\in\R$.
+        \item Wenn $X$ endliches $n$-tes Moment hat, dann gilt für $k=1,\dots,n$:
+        \[
+            \left.\dfrac{\diff^k}{\diff t^k} \Psi(t)\right|_{t=0} = i^k\cdot \E[X^k]
+        \]
+        \item $\Psi$ ist gleichmäßig stetig.
+        \item Wenn $X$ und $Y$ unabhängig sind, dann gilt $\Psi_{X+Y} = \Psi_X\cdot\Psi_Y$
+    \end{enumerate}
+\end{colbox}
+\textit{Beweis.}
+\begin{enumerate}
+    \item 
+    \[
+        \int_{-\infty}^{\infty} \underbrace{|e^{itx}|}_{=1} \diff F(x) 
+        = \int_{-\infty}^{\infty} \diff F(x) = F(x)\Big|_\infty^\infty = 1 < \infty
+    \]
+
+    \item 
+    \begin{align*}
+        \Psi(0) &= \int_{-\infty}^{\infty} \underbrace{e^{i\cdot 0 \cdot x}}_{=1} \diff F(x) = 1 \\
+        |\Psi(t)| &\leq \int_{-\infty}^{\infty} |e^{i\cdot t \cdot x}| \diff F(x) = 1 
+    \end{align*}
+    \item
+    \[
+        \Psi_{aX+b} = \E[\exp(it\cdot(aX+b))] = \E[\exp(itaX + itb)] = e^{itb}\cdot \E[\exp(i\cdot(at)\cdot X)] = e^{ibt}\cdot\Psi(at)
+    \]
+    \item 
+    \[
+        \left.\dfrac{\diff^k}{\diff t^k} \Psi(t) \right|_{t=0} 
+        = \left.\dfrac{\diff^k}{\diff t^k} \int_{-\infty}^{\infty} e^{itx}\diff F(x) \right|_{t=0} 
+        = \int_{-\infty}^{\infty} \left.\dfrac{\diff^k}{\diff t^k} e^{itx}\right|_{t=0} \diff F(x) 
+        = i^k\cdot \int_{-\infty}^{\infty} x^k \diff F(x) = i^k\cdot\E[X^k]
+    \]
+    Das Vertauschen von Integral und Ableitung ist (nach Leibniz Regel) erlaubt, da 
+    \[
+        \left|\dfrac{\diff^k}{\diff t^k} e^{itx}\right| = |i^k x^k e^{itx}| = |x^k|
+    \] 
+    und 
+    \[
+        \int_{-\infty}^{\infty} |x^k| \diff F(x) = \E|X|^k < \infty
+    \]
+    \item Als Erinnerung: Gleichmäßig stetig heißt, dass $\sup_t|\Psi(t+h)-\Psi(t)| \to 0$ für $h\to 0$:
+    \[
+        |\Psi(t+h)-\Psi(t)| = \Big|\E\big[e^{i(t+h)X}\big] - \E\big[e^{itX}\big]\Big| 
+        = \Big|\E\big[e^{itX}\cdot(e^{ihX}-1)\big]\Big| \leq \E\big[|e^{itX}|\cdot|e^{ihX}-1|\big] = \E|e^{ihX}-1|
+    \]
+    Demnach gilt für das Supremum:
+    \[
+        \sup_t|\Psi(t+h)-\Psi(t)| \leq \E|e^{ihX}-1| \to 0 \quad\text{für }h\to 0
+    \]
+    \item 
+    \[
+        \Psi_{X+Y}(t) = \E\big[e^{it(X+Y)}\big] = \E\big[e^{itX}\cdot e^{itY}\big] 
+        = \E\big[e^{itX}\big]\cdot\E\big[e^{itX}\big] = \Psi_X(t)\cdot\Psi_Y(t)
+    \]
+    \qed
+\end{enumerate}
+
+\begin{colbox}{Korollar}\label{kor:charReihe}
+    Aus Lemma \ref{lem:charEigenschaften} (4) ergibt sich folgende Reihenentwicklung:
+    \[
+        \Psi(t) = \sum_{k=0}^{\infty}\dfrac{i^k\cdot\E[X^k]}{k!}\cdot t^k
+    \]
+\end{colbox}
+
+\begin{colbox}{Beispiel}[charakteristische Funktion der Poisonverteilung]
+    Sei $X$ poissonverteilt mit Parameter $\lambda>0$ ($X\sim\mathrm{Poi}(\lambda)$), dann gilt:
+    \begin{align*}
+        \Psi(t) 
+        = \E[e^{itX}] 
+        = \sum_{k=0}^{\infty} e^{itk} \cdot \dfrac{\lambda^k}{k!}e^{-\lambda} 
+        = e^{-\lambda}\cdot \sum_{k=0}^{\infty} \dfrac{(\lambda\cdot e^{it})^k}{k!} 
+        = e^{-\lambda}\cdot e^{\lambda\cdot e^{it}} 
+        = \exp\big(\lambda(1-e^{it})\big)
+    \end{align*}
+\end{colbox}
+
+\begin{colbox}{Beispiel}[charakteristische Funktion der Normalverteilung]
+    Sei $X\sim \mathcal{N}(\mu,\sigma^2)$ normalverteilt. Zur Bestimmung von $\Psi_X$ betrachten wir 
+    $Z\sim\mathcal{N}(0,1)$, da $X = \sigma\cdot Z + \mu$. \\
+    Für die Standardnormalverteilung gilt:
+    \[
+        \E[Z^k] = \begin{cases}
+            0 & k \text{ ungerade} \\
+            (k-1)!! & k \text{ gerade}\footnote{$(k-1)!!=1\cdot 3 \cdot 5\cdot \dots \cdot (k-1)$} 
+        \end{cases}
+    \]
+    Aus Korollar \ref{kor:charReihe} folgt damit
+    \begin{align*}
+        \Psi_Z(t) 
+        = \sum_{k=0}^{\infty}\dfrac{(it)^k\cdot\E[Z^k]}{k!} 
+        = \sum_{k=0}^{\infty}(it)^{2k} \cdot \dfrac{1\cdot 3 \cdot 5\cdot \dots \cdot (2k-1)}{1\cdot2\dots (2k-1)\cdot 2k} 
+        = \sum_{k=0}^{\infty} \dfrac{(it)^{2k}}{2\cdot4\dots 2k} 
+    \end{align*}
+    Aus $i^2=-1$ und $2\cdot4\dots 2k = 2^k\cdot k!$ ergibt sich
+    \[
+        \Psi_Z(t) 
+        = \sum_{k=0}^{\infty} \dfrac{(it)^{2k}}{2\cdot4\dots 2k}
+        = \sum_{k=0}^{\infty} \\dfrac{(-t^2\,/\,2)^k}{k!} 
+        = e^{-t^2\,/\,2}
+    \]
+    Für $\Psi_X(t)$ ergibt sich nach Lemma \ref{lem:charEigenschaften} (3)
+    \[
+        \Psi_X(t) 
+        = \Psi_{\sigma Z + \mu}(t) 
+        = e^{it\mu}\cdot\Psi_Z(\sigma t) 
+        = e^{it\mu}\cdot e^{- \tfrac{\sigma^2t^2}{2}}
+    \]
+\end{colbox}
+
+\begin{colbox}{Beispiel}[Summe von Normalverteilungen]
+    Es seien $X\sim\mathcal{N}(\mu_1,\sigma_1^2)$ und $Y\sim\mathcal{N}(\mu_2,\sigma_2^2)$ unabhängig. Nach Lemma
+    \ref{lem:charEigenschaften} (6) gilt:
+    \[
+        \Psi_{X+Y}(t) 
+        = \Psi_X(t)\cdot\Psi_Y(t) 
+        = e^{it\mu_1}\cdot e^{- \tfrac{\sigma_1^2t^2}{2}}\cdot e^{it\mu_2}\cdot e^{- \tfrac{\sigma_2^2t^2}{2}} 
+        = e^{it(\mu_1+\mu_2)}\cdot e^{- \tfrac{(\sigma_1^2+\sigma_2^2)t^2}{2}}
+    \]
+    Wegen der Eindeutigkeit der charakteristischen Funktion folgt daraus, dass 
+    $X+Y\sim\mathcal{N}(\mu_1+\mu_2, \sigma_1^2 + \sigma_2^2)$.
+\end{colbox}
+
+\begin{colbox}{Satz}\label{satz:charKonv}
+    Sei $(F_n)$ eine Folge von Verteilungsfunktionen mit zugehörigen charakteristischen Funktionen $(\Psi_n)$ und 
+    sei $F$ eine Verteilungsfunktion mit charakteristischen Funktion $(\Psi)$. Dann gilt:
+    \[
+        F_n\to F\text{ punktweise}\footnote{an allen Stetigkeitsstellen} \iff \Psi_n\to\Psi \text{punktweise}
+    \]
+\end{colbox}
+\textit{ohne Beweis.}
+
 \subsection{Zentraler Grenzwertsatz und Konvergenz}
+
+\begin{colbox}{Definition}[Konvergenz in Verteilung]
+    Eine Folge von Zufallsgrößen $(X_n)$ mit Verteilungsfunktionen $(F_{X_n})$ konvergiert in Verteilung gegen eine 
+    Zufallsgröße $X$, wenn 
+    \[
+        \lim_{n\to\infty} F_{X_n}(x) = F_X(x)
+    \]
+    an allen Stetigkeitsstellen der Verteilungsfunktion $F_X$ von $X$. Wir schreiben dann $X_n\conD X$.
+\end{colbox}
+
+Eine äquivalente Definition besagt, dass $X_n \conD X$ falls $\E[g(X_n)]\to \E[g(X)]$ für alle stetigen, beschränkten 
+Funktionen $g$. Daraus folgt insbesondere, dass für derartige $g$ auch $g(X_n)\conD g(X)$.
+
+\begin{colbox}{Satz}
+    Wenn $X_n\conP X$, dann gilt $X_n\conD X$. \\
+    Die Umkehrung gilt im Allgemeinen nicht, außer $X=c$ ist konstant.
+\end{colbox}
+
+\begin{colbox}{Definition}
+    Wir führen folgende Schreibweisen ein:
+    \begin{enumerate}
+        \item $\displaystyle S_n := \sum_{i=1}^n X_i$
+        \item $D^2[X] := \Var(X) = \E(X-\E X)^2 = \E X^2 - (\E X)^2 $
+    \end{enumerate}
+\end{colbox}
+
+\begin{colbox}{Korollar}
+    Für die Varianz der Summe von unabhängigen, gleichverteilten (i.i.d.) Zufallsgröße  gilt
+    \[
+        D^2[S_n] = D^2\left[\sum_{i=1}^{n} X_i\right] = \sum_{i=1}^{n} D^2[X_i] = n\cdot D^2[X_1]
+    \]
+\end{colbox}
+
+\begin{colbox}{Satz}[Zentraler Grenzwertsatz]\label{satz:zentralerGWS}
+    Sei $(X_n)$ eine Folge von i.i.d. Zufallsgrößen mit $D^2[X_1]<\infty$, so gilt 
+    \[
+        \dfrac{S_n-\E[S_n]}{\sqrt{D^2[S_n]}} \conD Z \sim \mathcal{N}(0,1)
+    \]
+\end{colbox}
+\textit{Beweis.} 
+Es gilt für die charakteristische Funktion von $\tfrac{S_n-\E[S_n]}{\sqrt{D^2[S_n]}}$:
+
+\begin{align*}
+    \Psi_n(t) 
+    &= \E\left[\exp\left(it\cdot \dfrac{S_n-\E[S_n]}{\sqrt{D^2[S_n]}}\right)\right] \\
+    &= \E\left[\exp\left(i\cdot \dfrac{t}{\sqrt{n\cdot D^2[X_1]}}\cdot\sum_{j=1}^{n}(X_j-\E[X_1])\right)\right] \\
+    &= \E\left[\prod_{j=1}^{n}\exp\left(i\cdot \dfrac{t}{\sqrt{n\cdot D^2[X_1]}}\cdot(X_j-\E[X_1])\right)\right] \\
+    &= \prod_{j=1}^{n}\E\left[\exp\left(i\cdot \dfrac{t}{\sqrt{n\cdot D^2[X_1]}}\cdot(X_j-\E[X_1])\right)\right]\\
+    &= \E\left[\exp\left(i\cdot \dfrac{t}{\sqrt{n\cdot D^2[X_1]}}\cdot(X_1-\E[X_1])\right)\right]^n \\
+    &= \Psi_Y\left(\dfrac{t}{\sqrt{n\cdot D^2[X_1]}}\right)^n
+\end{align*}
+
+wobei $Y=X_1-\E[X_1]$. 
+
+Unter Verwendung der Taylor-Formel ergibt sich
+
+\begin{align*}
+    \Psi_Y\left(\dfrac{t}{\sqrt{n\cdot D^2[X_1]}}\right) 
+    = \underbrace{\Psi_Y(0)}_{=0} + \underbrace{\Psi_Y'(0)}_{=i\E Y = 0}\cdot \dfrac{t}{\sqrt{n\cdot D^2[X_1]}} 
+    + \underbrace{\Psi_Y''(0)}_{=i^2\E Y^2 = -D^2[X_1]}\cdot \dfrac{t^2}{2n\cdot D^2[X_1]} 
+    + o\left(\dfrac{t^2}{n}\right) \\
+    = 1 + \dfrac{-\tfrac{t^2}{2}+o(\tfrac{t^2}{n})}{n}
+\end{align*}
+
+Da $o(\tfrac{t^2}{n})\to 0$ für $n\to\infty$ folgt 
+
+\[
+    \Psi_n(t) = \left( 1 + \dfrac{-\tfrac{t^2}{2}+o(\tfrac{t^2}{n})}{n}\right)^n \to e^{-t^2\,/\,2}
+\]
+
+Dies ist genau die charakteristische Funktion der Standardnormalverteilung und damit folgt nach Satz \ref{satz:charKonv}
+die Konvergenz in Verteilung gegen $\mathcal{N}(0,1)$.
+\qed
+
+\begin{colbox}{Bemerkung}
+    Äquivalent umgeformt besagt der der zentrale Grenzwertsatz, dass wir Summen von i.i.d. Zufallsgrößen durch 
+    eine Normalverteilung annähern können, denn Umformungen ergeben
+    \[
+        S_n \approx \mathcal{N}\left(\E[S_n], D^2[S_n]\right)
+    \]
+    und damit 
+    \[
+        \P(S_n \leq x) \approx \Phi\left(\dfrac{y-\E[S_m]}{\sqrt{D^2[S_n]}}\right).
+    \]
+\end{colbox}
+
+\begin{colbox}{Beispiel}[Normalapproximation]
+    Seien $X_1,\dots,X_n$ Bernoulli verteilt zum Parameter 1, d.h. 
+    \[
+        X_k := \begin{cases}
+            1, \quad \text{Ereignis} A \text{trifft ein, Wahrscheinlichkeit: } p=\P(A). \\
+            0, \quad \text{Ereignis} A \text{trifft nicht ein, Wahrscheinlichkeit: } 1-p=\P(A^c).
+        \end{cases}
+    \]
+    Die Summe $S_n\sim\mathrm{Bin}(n,p)$ gibt demnach die Anzahl an Erfolgen ($A$ trifft ein) 
+    nach $n$ unabhängigen Versuchen an. Dabei gilt:
+    \[
+        \P(S_n \leq x) = \sum_{k=0}^{\lfloor x \rfloor} \binom{n}{k}\cdot p^k\cdot(1-p)^{n-k}
+    \]
+    Dabei ist der Term $\binom{n}{k} = n\cdot(n-1)\dots(n-k+1)$ für große $n$ teuer zu berechnen. Nutzen wir stattdessen 
+    die Annäherung durch die Standardnormalverteilung so ergibt sich:
+    \[
+        S_n\approx\mathcal{N}(np,np(1-p)) \implies 
+        \P(S_n \leq x) 
+        = \dfrac{1}{\sqrt{2\pi n^2p^2(1-p)^2}}\cdot\exp\left(-\dfrac{1}{2}\cdot\left(\dfrac{x-np}{np(1-p)}\right)^2\right)
+    \]
+    Bereits für das Beispiel $n=100$, $p=0.5$ ergibt sich folgender Vergleich:
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{images/vergleich_cdf.pdf}
+    \end{center}
+    mit einem maximalen quadratischen Fehler von unter 0.003.
+\end{colbox}
+
+\begin{colbox}{Beispiel}
+    Als Anwendungsbeispiel betrachten wir folgenden Kontext: 
+
+    $40\,\%$ der Menschen in Deutschland haben Blutgruppe Null. Es wird eine Stichprobe von $n=1000$ zufällig 
+    ausgewählten Personen gezogen. Wie große ist die Wahrscheinlichkeit, dass zwischen $30\,\%$ bis $50\,\%$ der 
+    Personen die Blutgruppe Null haben? 
+
+    Wir definieren $Y$ als die Anzahl der Personen mit Blutgruppe Null aus den $n=1000$ zufällig befragen Personen, dann 
+    ist $Y\sim\mathrm{Bin}(0.4, 1000)$. Für die Wahrscheinlichkeit, dass zwischen $38\,\%$ bis $42\,\%$ der Befragten,
+    also zwischen 380 und 420 Personen, die Blutgruppe Null haben, ergibt sich
+    
+    \begin{align*}
+        \P(380 < Y \leq 420) 
+        &= \P(Y\leq 380) - \P(Y\leq 420) \\
+        &\approx \Phi\left(\dfrac{420-1000\cdot0.4}{\sqrt{1000\cdot 0.4\cdot(1-0.4)}}\right)
+        - \Phi\left(\dfrac{380-1000\cdot0.4}{\sqrt{1000\cdot 0.4\cdot(1-0.4)}}\right) \\
+        &= \Phi\left(\dfrac{20}{\sqrt{240}}\right) - \Phi\left(-\dfrac{20}{\sqrt{240}}\right) \\
+        &= 2\Phi\left(\dfrac{20}{\sqrt{240}}\right) - 1 \approx 0.803
+    \end{align*}
+\end{colbox}
+
+\begin{colbox}{Beispiel}[Stichprobenumfang bei Umfragen]
+    Ein unbekannter Anteil $p$ von Menschen wählt eine Partei. Dieses $p$ soll in einer Umfrage ermittelt werden.
+
+    Gefragt ist, wie groß dem Umfang $n$ einer Stichprobe sein muss, so dass die Umfrage aussagekräftig ist.
+
+    Dabei sei $X_1,\dots,X_n$ unsere mathematische Stichprobe (Bernoulli verteilt mit Parameter $p$). Es ergibt 
+    sich dabei, dass $S_n$ die Anzahl der Wähler gesuchter Partei aus $n$ Befragten ist. 
+
+    $S_n$ ist binomialverteilt und $\hat{p}_n = \tfrac{S_n}{n}$ ist die relative Häufigkeit des Ereignisses und dient 
+    als Schätzer für den echten Anteil $p$. 
+
+    Unser Ziel ist, dass wir mit einer Wahrscheinlichkeit von mindestens $95\,\%$ eine Abweichung von maximal $2\,\%$ 
+    zum echten Anteil haben, d.h. wir suchen $n$, so dass $\P(|p-\hat{p}_n|\leq 0.02)\geq 0.95$. 
+
+    Es gilt
+    \[
+        \P(|p-\hat{p}_n|\leq 0.02) 
+        = \P\left(\left|\dfrac{S_n}{n}-p\right|\leq 0.02\right) 
+        = \P\left(\left|\dfrac{S_n-np}{\sqrt{np(1-p)}}\right|\leq \dfrac{0.02n}{\sqrt{np(1-p)}}\right)
+    \]
+
+    Durch $p(1-p)=\tfrac{1}{4} - (p-\tfrac{1}{2})^2 \leq \tfrac{1}{4}$ ergibt sich 
+    \[
+        \P(|p-\hat{p}_n|\leq 0.02) 
+        \geq \P\left(\left|\dfrac{S_n-np}{\sqrt{np(1-p)}}\right|\leq \dfrac{0.02n}{\sqrt{n\tfrac{1}{4}}}\right)
+        = \P\left(\left|\dfrac{S_n-np}{\sqrt{np(1-p)}}\right|\leq 0.04\cdot\sqrt{n}\right)
+    \]
+
+    Durch unsere Annäherung erhalten wir 
+    \[
+        \P(|p-\hat{p}_n|\leq 0.02) \geq \Phi(0.04\sqrt{n}) - \Phi(0.04\sqrt{n}) = 2\Phi(0.04\sqrt{n}) - 1
+    \]
+
+    Damit $\P(|p-\hat{p}_n|\leq 0.02)\geq 0.95$ muss demnach $\Phi(0.04\sqrt{n})\geq 0.975$, also $0.04\sqrt{n}\geq 1.96$
+    bzw. $n\geq 2401$.
+\end{colbox}
+
+\begin{colbox}{Satz}[Slutsky's Theorem]
+    Seien $(X_n)$ und $(Y_n)$ Folgen von zufälligen Vektoren mit $X_n\conD X$ und $Y_n\conD Y$, wobei $X$ und $Y$ 
+    ebenfalls zufällige Vektoren sind. 
+    \begin{enumerate}
+        \item Im Allgemeinen gilt nicht, dass $(X_n+Y_n)$ gegen $X+Y$, oder dass $(X_n^TY_n)$ gegen $X^TY$ 
+        in Verteilung konvergiert. 
+        \item Im Fall, dass $Y=c$ konstant ist, gilt jedoch $X_n+Y_n\conD X+c$ und $X_n^TY_n \conD X^Tc$.
+    \end{enumerate} 
+\end{colbox}
+\textit{Beweis.}
+Für ersten genügt ein Gegenbeispiel, sei hierfür $(Z_i)$ eine beliebige Folge von zentrierten Zufallsgrößen 
+(d.h. $\E Z_n = 0$) und sei $S_n = \sum_{i=1}^{n} Z_n$, so gilt nach dem zentralen Grenzwertsatz:
+\begin{align*}
+    X_n := \dfrac{S_n}{\sqrt{D^2[S_n]}} \conD Z\sim \mathcal{N}(0,1) \\
+    Y_n := \dfrac{-S_n}{\sqrt{D^2[S_n]}} \conD Z\sim \mathcal{N}(0,1)
+\end{align*}
+Offensichtlich gilt jedoch $X_n+Y_n=0\conD 0$, aber $Z+Z\sim \mathcal{0,4}$. 
+
+Das gleiche Beispiel fungiert auch für den Fall $(X_n^TY_n)$. Hierbei gilt 
+
+\[
+    X_n\cdot Y_n = -\left(\dfrac{S_n}{\sqrt{D^2[S_n]}}\right)^2 \conD -Z^2
+\]
+
+Jedoch haben $Z^2$ und $-Z^2$ verschiedene Verteilungen, da $\P(Z^2\leq 0) = 0 \neq 1 = \P(-Z^2\leq 0)$.
+
+Der zweite Teil des Beweises sei ausgelassen.
+\qed
+
+\begin{colbox}{Satz}
+    Seien $(X_n)$ und $(Y_n)$ unabhängige Folgen von Zufallsgrößen mit $X_n\conD X$ und $Y_n\conD Y$, wobei $X$ und $Y$ 
+    ebenfalls unabhängige Zufallsgrößen sind, so gilt 
+    \[
+        \begin{pmatrix}
+            X_n \\ Y_n 
+        \end{pmatrix} 
+        \conD 
+        \begin{pmatrix}
+            X \\ Y 
+        \end{pmatrix}
+    \]
+    Sollte die Unabhängigkeit nicht gelten, so ist die Konvergenz im Allgemeinen nicht gegeben.
+\end{colbox}
+\textit{Beweis.}
+Für die Verteilungsfunktion von unabhängigen Zufallsgrößen gilt:
+\[
+    F_{X_n,Y_n}(x,y) = F_{X_n}(x)\cdot F_{Y_n}(y) \xrightarrow{n\to\infty} F_X(x)\cdot F_Y(x) = F_{X,Y}(x,y)
+\]
+
+Als Gegenbeispiel dient $X,Y\sim \mathcal{N}(0,1)$ mit $Y_n\equiv X_n\equiv X$. Es folgt\footnote{
+    Für die Normalverteilung gilt mit $X_i\sim \mathcal{N}(\mu_i, \sigma_i^2)$, dass $X=(X_1,\dots,X_n)^T$ wieder
+    normalverteilt ist, mit $(\E[X])_i = \mu_i$ und $(D^2[X])_{ij} = \mathrm{Cov}(X_i,X_j)$.
+}
+\[
+    \begin{pmatrix}
+        X_n \\ Y_n 
+    \end{pmatrix} 
+    \conD
+    \begin{pmatrix}
+        X \\ X
+    \end{pmatrix}
+    \sim 
+    \mathcal{N}\left(
+        \begin{pmatrix}
+            0 \\ 0
+        \end{pmatrix},
+        \begin{pmatrix}
+            1 & 1 \\ 1 & 1
+        \end{pmatrix}
+    \right) 
+    \neq 
+    \mathcal{N}\left(
+        \begin{pmatrix}
+            0 \\ 0
+        \end{pmatrix},
+        \begin{pmatrix}
+            1 & 0 \\ 0 & 1
+        \end{pmatrix}
+    \right)
+    \sim 
+    \begin{pmatrix}
+        X \\ Y
+    \end{pmatrix}
+\]
+\newpage
+\subsection*{\underline{Aufgaben:}}
+
+\begin{aufgabe}
+Gegeben seien unabhängige und identisch verteilte Zufallsvariablen $X_1,X_2,\dots$, wobei $X_1$
+exponentialverteilt mit Parameter $\lambda=1$ sei, d.h. Lebesguedichte $f(x)=\One_{(0,\infty)}\exp(-x)$ besitzt. Zeigen 
+Sie, dass $Y_n = \max\{X_1,\dots,X_n\} - \ln(n)$ in Verteilung konvergiert und bestimmen Sie die Grenzverteilung. 
+\end{aufgabe}
+    
+\begin{aufgabe}
+Es sei $a\in\R$ und $(X_n)_{n\in\N}$ eine Folge von quadratintegrierbaren Zufallsgrößen. Zeigen Sie: 
+\begin{enumerate}
+    \item[a)] Gilt $\E[X_n]\nto a$ und $\Var[X_n]\nto 0$, so folgt $X_n\conP a$.
+    \item[a)] Gilt $\E[X_n]\nto a$ und $\sum_{n=1}^{\infty}\Var[X_n] <\infty$, so folgt $X_n\conFS a$.
+\end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe}
+Es sei $(Y_n)_{n\in\N}$ eine Folge unabhängiger und identisch exponentialverteilter Zufallsgrößen
+mit Parameter $\lambda>0$. Zeigen Sie:
+\begin{enumerate}
+    \item[a)] Für $X_n=Y_n\,/\,\ln n$ gilt $X_n\conP 0$ aber nicht $X_n \conFS 0$. 
+    \item[b)] Für $X_n=Y_n\,/\,(\ln n)^2$ gilt $X_n\conP 0$ und $X_n \conFS 0$. 
+\end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe} 
+Sei $(X_n)_{n\in\N}$ eine Folge von Zufallsvariablen und $X$ eine weitere Zufallsvariable. 
+\begin{enumerate}
+    \item[a)] Falls $X_n\conFS X$, so folgt $X_n\conP X$.
+    \item[b)] Es gelte $X_n\conD c$, wobei $c$ eine deterministische Konstante ist. Dann folgt $X_n\conP c$. 
+\end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe} 
+Beweisen Sie folgende Verallgemeinerungen der Tschebyscheffschen Ungleichungen:
+\begin{enumerate}
+    \item[a)] Unter der Voraussetzungen, dass $\E[e^{aX}]$ für $a>0$ existiert, ist
+    \[
+        \P(X\geq \varepsilon) \leq \dfrac{\E[e^{aX}]}{e^{a\varepsilon}}, \qquad (\varepsilon>0).
+    \]
+    \item[b)] Für die positiv und nichtfallende Funktion $f$ existiere der Erwartungswert $\E[f(|X-\E X|)]$. Dann gilt
+    \[
+        \P(|X-\E X|\geq \varepsilon) \leq \dfrac{\E[f(|X-\E X|)]}{f(\varepsilon)}
+    \]
+\end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe} 
+Es sei $(Y_n)$ eine Folge unabhängiger auf $(0,1)$ gleichverteilter Zufallsgrößen. Zeigen Sie, dass 
+\[
+    X_n := \left(\dfrac{1}{Y_1}\dots\dfrac{1}{Y_n}\right)^{\tfrac{1}{n}}\conFS e
+\]
+gilt.
+\end{aufgabe}
+
+\begin{aufgabe} 
+Zeigen Sie, dass der Grenzwert in Wahrscheinlichkeit und der fast sichere Grenzwert linear sind.
+\end{aufgabe}
+
+\begin{aufgabe} 
+Beweisen Sie den Satz von Caesaro-Konvergenz, d.h. aus der Konvergenz $x_n\to x\in\R$ einer Zahlenfolge $(x_n)$ folgt
+$\tfrac{1}{n}\sum_{i=1}^{n}x_n\to x\ (n\to\infty)$.
+\end{aufgabe}
+
+\begin{aufgabe} 
+Berechnen Sie die charakteristischen Funktionen der folgenden Zufallsgrößen:
+\begin{enumerate}
+    \item[a)] $X$ sie auf dem Intervall $[-a,a]$ für ein $a>0$ gleichverteilt,
+    \item[b)] $Y$ sei zweipunktverteilt gegeben durch $\P(Y=1)=\P(Y=-1)=0.5$,
+    \item[c)] $Z\sim\mathrm{Bin}(n,p)$, d.h. $Z$ sei eine binomialverteilte Zufallsgröße mit Parametern $n\in\N$ und 
+    $p\in(0,1)$.
+\end{enumerate}
+\end{aufgabe}
+
+\begin{aufgabe} 
+Zeigen Sie mit Hilfe des zentralen Grenzwertsatzes durch die Wahl geeigneter Zufallsgrößen $X_n$ in Satz 
+\ref{satz:zentralerGWS}, dass
+\[
+    \lim_{n\to\infty} e^{-n}\sum_{k=1}^{n}\dfrac{n^k}{k!} = 0.5.
+\]
+\end{aufgabe}
