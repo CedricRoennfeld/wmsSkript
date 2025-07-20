@@ -19,7 +19,9 @@
 \begin{colbox}{Definition}[Stichprobenfunktion]
     Eine Borel-messbare Abbildung $\phi:\R^n\to\R^m$ heißt Stichprobenfunktion, insbesondere heißt eine 
     Abbildung $\varphi(X_1,\dots,X_n):\Omega\to\R^m$ mit 
-    $\varphi(X_1,\dots,X_n)(\omega) = \varphi(X_1(\omega), \dots,X_n(\omega))$ Statistik oder auch zufällige
+    \[
+        \varphi(X_1,\dots,X_n)(\omega) = \varphi(X_1(\omega), \dots,X_n(\omega))
+    \] Statistik oder auch zufällige
     Stichprobenfunktion.
 \end{colbox}
 
@@ -238,7 +240,7 @@ Der zweite Teil sei erneut ohne Beweis.
     \[
         \overline{X}_n\sim\mathcal{N}(\mu,\tfrac{\sigma^2}{n}), \quad
         \dfrac{(n-1)S_n^2}{\sigma^2}\sim\chi^2_{n-1}, \quad
-        \dfrac{\sqrt{n}(\overline{X}_n-\mu)}{S_n}\sim t_{n-1}
+        \dfrac{\sqrt{n}(\overline{X}_n-\mu)}{\sqrt{S_n^2}}\sim t_{n-1}
     \]
 \end{colbox}
 \textit{Beweis.} Ohne Beweis.
@@ -721,14 +723,6 @@ hat.
 \end{aufgabe}
 
 \begin{aufgabe}
-Führen Sie zur näherungsweisen Berechnung des Integrals
-\[
-  \int_{0}^{\frac{\pi}{2}} \sin x \, dx
-\]
-eine Monte‑Carlo‑Simulation mit Hilfe von MATLAB durch. Nutzen Sie dabei \(n = 10^i\) Samples für \(i \in \{1,\dots,6\}\). Stellen Sie anschließend den absoluten Fehler der numerisch bestimmten Werte von dem korrekten Integralwert in Abhängigkeit von der Anzahl der Samples in einem doppelt‑logarithmischen Diagramm dar.
-\end{aufgabe}
-
-\begin{aufgabe}
 Gegeben sei eine Stichprobe \((X_1,\dots,X_n)\) von der mit Parameter \(p\in(0,1)\) Bernoulli‑verteilten Zufallsgröße \(X\). Wir wollen nun \(p^2\) mit Hilfe der zufälligen Stichprobenfunktion
 \[
   \varphi_1(X_1,\dots,X_n) \;=\; X_1 \cdot X_2
@@ -748,31 +742,12 @@ schätzen.
     S = \sum_{j=1}^n X_j.
   \]
   Bestimmen Sie den Erwartungswert von \(\varphi_2(X_1,\dots,X_n)\).
-  \item Zeigen Sie mit Hilfe der Jensen‑Ungleichung, dass
+  \item Zeigen Sie mit Hilfe der Jensen-Ungleichung, dass
   \[
     \mathrm{D}^2\bigl[\varphi_1(X_1,\dots,X_n)\bigr]
     \;\ge\;
     \mathrm{D}^2\bigl[\varphi_2(X_1,\dots,X_n)\bigr].
   \]
-\end{enumerate}
-\end{aufgabe}
-
-\begin{aufgabe}
-\begin{enumerate}
-  \item Die Stichprobenvariablen \(X_1,\dots,X_n\) seien absolut stetig mit der stückweise stetigen Dichte \(f\colon\mathbb{R}\to[0,\infty)\) und \(X_{(1)},\dots,X_{(n)}\) die zugehörigen Ordnungsstatistiken. Zeigen Sie, dass die gemeinsame Dichte \(f_{X_{(i)},X_{(j)}}\colon\mathbb{R}^2\to[0,\infty)\) für \(1\le i<j\le n\) durch
-  \[
-    f_{X_{(i)},X_{(j)}}(x_i,x_j)
-    =
-    \begin{cases}
-      \displaystyle
-      \frac{n!\,f(x_i)\,f(x_j)\,\bigl(F(x_i)\bigr)^{i-1}\,\bigl(F(x_j)-F(x_i)\bigr)^{\,j-1-i}\,\bigl(1-F(x_j)\bigr)^{\,n-j}}
-           {(i-1)!\,(j-1-i)!\,(n-j)!}, 
-      & -\infty<x_i<x_j<\infty,\\
-      0, & \text{sonst}
-    \end{cases}
-  \]
-  gegeben ist.
-  \item Die Stichprobenvariablen \(X_1,\dots,X_n\) seien gleichverteilt im Intervall \((0,b)\) für ein \(b>0\). Bestimmen Sie die Dichte der Spannweite \(R_n = X_{(n)} - X_{(1)}\).
 \end{enumerate}
 \end{aufgabe}
 
@@ -810,26 +785,6 @@ Sei \(X_1,\dots,X_n\) eine Stichprobe mit Verteilungsfunktion \(F\). Als Schätz
   \frac{\bigl|W_n(t) - F(t)\bigr|^2}{1 + t^2}\,dt
   \;\xrightarrow{P}\;0.
 \]
-\end{aufgabe}
-
-\begin{aufgabe}
-Sie führen eine Studie durch, welche den Zusammenhang zwischen Studiendauer und Einstiegsgehalt von Universitätsabsolventen der Wirtschaftswissenschaften untersucht. Das Ergebnis ist in der folgenden Tabelle angegeben:
-
-\begin{center}
-\begin{tabular}{r|*{11}{r}}
-Absolvent \(i\)              & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 \\ \hline
-Studiendauer \(x_i\) (Sem.)  & 7 & 10 & 8 & 10 & 6 & 11 & 7 & 8 & 7 & 11 & 12 \\
-Einkommen \(y_i\) (\(10^3€\)) & 34 & 58 & 29 & 61 & 40 & 51 & 39 & 64 & 39 & 56 & 59
-\end{tabular}
-\end{center}
-
-\begin{enumerate}
-  \item Berechnen Sie das konkrete Stichprobenmittel und die konkrete Stichprobenvarianz der Stichprobe für \(X\) (Studiendauer) sowie \(Y\) (Einkommen).
-  \item Berechnen Sie die Kovarianz sowie den Korrelationskoeffizienten zwischen den beiden Merkmalen. Welche Schlussfolgerung ergibt sich daraus?
-  \item Plotten Sie ein Streudiagramm von \((x_i,y_i)\). Bewerten Sie Ihre Schlussfolgerung aus (ii) vor dem Hintergrund des Diagramms.
-  \item Markieren Sie im Streudiagramm die Bachelor‑Absolventen (i=1,3,5,7,9) und die Master‑Absolventen (i=2,4,6,8,10,11) unterschiedlich.
-  \item Wie ändert sich die Interpretation des Zusammenhangs zwischen Studiendauer und Einstiegsgehalt?
-\end{enumerate}
 \end{aufgabe}
 
 \begin{aufgabe}

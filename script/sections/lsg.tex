@@ -338,14 +338,14 @@ Damit folgt:
             = \frac{b^p}{\Gamma(p)}\int_{z=0}^{\infty} e^{-z} \left(\frac{z}{b-it}\right)^{p-1} \frac{1}{b-it} \diff z \\
             &= \frac{b^p}{\Gamma(p)}\cdot\frac{1}{(b-it)^p} \int_{0}^{\infty} e^{-z} z^{p-1} \diff z 
             = \frac{b^p}{\Gamma(p)}\cdot\frac{1}{(b-it)^p}\cdot \Gamma(p)
-            = \left(1-\dfrac{b}{it}\right)^p
+            = \left(1-\dfrac{it}{b}\right)^{-p}
         \end{align*}
         \item Seien $Y_1\sim \Gamma(b,p1)$ und $Y_2\sim \Gamma(b,p_2)$ unabhängig so gilt:
         \begin{align*}
             \Psi_{Y_1+Y_2}(t) 
             = \Psi_{Y_1}(t)\cdot\Psi_{Y_2}(t) 
-            = \left(1-\dfrac{b}{it}\right)^{p_1}\cdot\left(1-\dfrac{b}{it}\right)^{p_2}
-            = \left(1-\dfrac{b}{it}\right)^{p_1+p_2}
+            = \left(1-\dfrac{it}{b}\right)^{-p_1}\cdot\left(1-\dfrac{it}{b}\right)^{-p_2}
+            = \left(1-\dfrac{it}{b}\right)^{-(p_1+p_2)}
         \end{align*}
         Dies ist wieder die charakteristische Funktion einer Gammaverteilung, also folgt $Y_1+Y_2\sim\Gamma(b,p_1+p_2)$.
     \end{enumerate}
@@ -356,12 +356,173 @@ Damit folgt:
     \begin{align*}
         \Psi_{X_i^2}(t) 
         = \E[e^{itX}] 
-        = \int_{0}^{\infty} e^{itx^2}\cdot\dfrac{1}{\sqrt{2\pi}} e^{-\tfrac{x^2}{2}} \diff x
-        = \dfrac{1}{\sqrt{2\pi}}\cdot\int_{0}^{\infty} e^{-(x(\tfrac{1}{2}-it))^2} \diff x
+        = \int_{-\infty}^{\infty} e^{itx^2}\cdot\dfrac{1}{\sqrt{2\pi}} e^{-\tfrac{x^2}{2}} \diff x
+        = \dfrac{1}{\sqrt{2\pi}}\cdot
+        \int_{-\infty}^{\infty} \exp\left(-\left(x\sqrt{\tfrac{1}{2}-it}\right)^2\right) \diff x
     \end{align*}
-    Substitution von $z=x(\tfrac{1}{2}-it)$ und Verwendung des Gaußschen Integrals 
-    $\int_{0}^{\infty}e^{-x^2}\diff x = \tfrac{\sqrt{\pi}}{2}$ folgt
+    Substitution von $z=x\sqrt{\tfrac{1}{2}-it}$ und Verwendung des Gaußschen Integrals 
+    $\int_{-\infty}^{\infty}e^{-x^2}\diff x = \sqrt{\pi}$ folgt
     \[
-        \Psi_{X_i^2}(t) = \dfrac{1}{\sqrt{2\pi}}\cdot
+        \Psi_{X_i^2}(t) 
+        = \dfrac{1}{\sqrt{2\pi}}\cdot \sqrt{\dfrac{2}{1-2it}} \cdot \int_{-\infty}^{\infty}e^{-z^2}\diff z 
+        = \dfrac{1}{\sqrt{1-2it}}
     \]
+    Wir erkennen also, dass $X_i^2\sim\Gamma(\tfrac{1}{2},\tfrac{1}{2})$. 
+    Damit gilt $U_r\sim\Gamma(\tfrac{1}{2},\tfrac{r}{2})$ und hat die Dichte 
+    \[
+        f_{U_r}(x) 
+        = \dfrac{(\tfrac{1}{2})^{r/2}}{\Gamma(r/2)} e^{-\tfrac{1}{2}x} x^{r/2-1}\One_{(0,\infty)}(x)
+        = \dfrac{1}{2^{r/2}\Gamma(r/2)} e^{-x/2} x^{(r-2)/2}\One_{(0,\infty)}(x)
+    \]
+\end{loesung}
+
+\begin{loesung}
+    \begin{enumerate}
+        \item
+        Wegen der Unabhängigkeit einer Stichprobe gilt 
+        \[
+            \E[\varphi(X_1,\dots,X_n)] 
+            = \E[X_1\cdot X_2] 
+            = \E[X_1]\cdot\E[X_2] 
+            = p\cdot p 
+            = p^2
+        \]
+        und 
+        \begin{align*}
+            D^2[\varphi(X_1,\dots,X_n)] 
+            &= D^2[X_1\cdot X_2] 
+            = \E[X_1^2\cdot X_2^2] - \E[X_1\cdot X_2]^2  \\
+            &= \E[X_1^2]\cdot\E[X_2^2] - E[X_1]^2\cdot \E[X_2]^2 
+            = p\cdot p - p^2\cdot p^2 
+            = p^2(1-p^2)
+        \end{align*}
+        Sei $f(p) = p^2(1-p^2)$ für $p\in(0,1)$, so gilt 
+        \[
+            f'(p) = 2p-4p^3 \stackrel{!}{=} 0 \iff p = \sqrt{1/2}
+        \]
+        und $f''(p) = -4<0$ mit $f(0)=f(1)=0$. Demnach ist $f$ maximal bei $p=\sqrt{1/2}$ und so
+        \[
+            D^2[\varphi(X_1,\dots,X_n)] \leq \dfrac{1}{4}
+        \]
+        \item
+        Den Erwartungswert von $\varphi_2$ liefert die Turmeigenschaft des bedingten Erwartungswertes:
+        \[
+            \E[\varphi_2(X_1,\dots,X_n)] 
+            = \E[\E[\varphi_1(X_1,\dots,X_n)\,|\, S]] 
+            = \E[\varphi_1(X_1,\dots,X_n)] = p^2
+        \]
+        \item 
+        \begin{align*}
+            D^2[\varphi_2] 
+            &= \E[\varphi_2^2] - \E[\varphi_2]^2 
+            = \E[\E[\varphi_1\,|\, S]^2] -  \E[\varphi_1]^2 \\
+            &\leq \E[\E[\varphi_1^2\,|\, S]] -  \E[\varphi_1]^2 
+            = \E[\varphi_1^2] - \E[\varphi_1]^2
+            = D^2[\varphi_1]
+        \end{align*}
+    \end{enumerate}
+\end{loesung}
+
+\begin{loesung}
+    Aus der Unabhängigkeit von $X_1,\dots,X_n$ folgt die Unabhängigkeit von $X_1^j,\dots,X_n^j$ und damit 
+    liefert das Gesetz der großen Zahlen, dass 
+    \[
+        \overline{X^j}_n = \dfrac{1}{n}\sum_{i=1}^{n} X_i^j \conFS \E[X^j] \quad \text{für alle }j=0,\dots,k
+    \]
+    Außerdem folgt aus $\overline{X_n}\conFS \E[X]$, dass $\overline{X_n}^l\conFS \E[X]^l$ für alle $l=0,\dots,k$.
+
+    Da $\overline{X_n}^j$ und $\overline{X^l}_n$ beide fast sicher gegen Konstanten konvergieren, folgt 
+    \[
+        \overline{X^l}_n\cdot\overline{X_n}^j  \conFS  \E[X^l]\cdot\E[X]^j
+    \] 
+    Und somit liefert der binomische Lehrsatz:
+    \begin{align*}
+        \dfrac{1}{n-1}\sum_{i=1}^{n}(X_i-\overline{X}_n)^k 
+        &= \dfrac{1}{n-1} \sum_{i=1}^{n} \sum_{j+l=k}\cdot \binom{n}{j} X_i^l\cdot\overline{X_n}^j
+        = \dfrac{n}{n-1} \sum_{j+l=k} \binom{n}{j}\cdot \overline{X^l}_n \cdot\overline{X_n}^j \\
+        &\conFS \sum_{j+l=k} \binom{n}{j}\cdot \E[X^l]\cdot\E[X]^j 
+        = \E\left[\sum_{j+l=k} \binom{n}{j}\cdot X^l\cdot\E[X]^j\right]
+        = \E(X-\E[X])^k
+    \end{align*}
+\end{loesung}
+
+\begin{loesung}
+    \begin{enumerate}
+        \item Seien $F$ und $G$ Verteilungsfunktionen, so gilt:
+        \begin{enumerate}
+            \item Da $|F(x)-G(x)|\geq 0$ folgt direkt $d_K(F,G)\geq 0$.
+            \item Wenn $d_K(F,G)=0$, dann ist $0$ eine obere Schranke von $|F(x)-G(x)|\leq 0$. Damit folgt $F(x)=G(x)$.
+            \item Wenn $F=G$, dann gilt offensichtlich $d_K(F,G)=0$.
+            \item Wegen $|F(x)-G(x)| = |G(x)-F(x)|$ folgt $d_K(F,G)=d_K(G,F)$
+            \item Die Dreiecksungleichung von Betrag und Supremum liefert
+            \begin{align*}
+                d_K(F,H) 
+                &= \sup |F(x)-H(x)| 
+                \leq \sup |F(x)-G(x)| + |G(x)-H(x)| \\ 
+                &\leq \sup |F(x)-G(x)| + \sup |G(x)-H(x)|
+                = d_K(F,H) + d_K(G,H)
+            \end{align*}
+        \end{enumerate}
+        \item $d_K(F_n,F)\nto 0$ ist äquivalent dazu, dass $F_n$ gleichmäßig gegen $F$ konvergiert. Dies impliziert 
+        die punktweise Konvergenz von $F_n$ gegen $F$, was gleichbedeutend zur Konvergenz in Verteilung von $X_n$
+        gegen $X$ ist.
+
+        Ein mögliches Gegenbeispiel ist $X_n \sim \mathcal{N}(0,\tfrac{1}{n})$. Hierbei gilt 
+        \[
+            F_n(x) = \Psi(nx) \nto \begin{cases}
+                0, & x<0 \\
+                1, & x>1 
+            \end{cases}
+        \]
+        Also konvergiert $F_n(x)$ punktweise gegen $F(x)=\One_{x\geq 1}$ in allen Stetigkeitsstellen von $F$. 
+        Demnach konvergiert $X_n$ gegen $X\equiv 0$. Aber $|F_n(0)-F(0)|=\tfrac{1}{2}$ und damit folgt 
+        $d_K(F_n,F)\geq \tfrac{1}{2}$.
+    \end{enumerate}
+\end{loesung}
+
+\begin{loesung}
+    Sei $\varepsilon\geq 0$. Nach der Markov Ungleichung gilt 
+    \[
+        \P\left(\int_{\R} \dfrac{(W_n(t)-F(t))^2}{1+t^2}\diff t \geq \varepsilon\right) 
+        \leq \dfrac{1}{\varepsilon}\cdot\E\left[\int_{\R} \dfrac{(W_n(t)-F(t))^2}{1+t^2}\diff t\right]
+    \]
+    Wegen $\tfrac{|W_n(t)-F(t)|^2}{1+t^2}\geq 0$ darf nach dem Satz von Fubini das Integral und der Erwartungswert 
+    getauscht werden und es folgt 
+    \[
+        \dfrac{1}{\varepsilon}\cdot\int_{\R} \dfrac{|W_n(t)-F(t)|^2}{1+t^2}\diff t 
+        = \dfrac{1}{\varepsilon}\cdot\int_{\R} \dfrac{\E(W_n(t)-F(t))^2}{1+t^2} \diff t
+    \]
+    Nach dem Hauptsatz der Statistik ist $\E(W_n(t)-F(t))^2 = D^2[W_n(t)] = \tfrac{1}{n}F(t)(1-F(t))\leq \tfrac{1}{n}$ und damit
+    \[
+        \dfrac{1}{\varepsilon}\cdot\int_{\R} \dfrac{\E(W_n(t)-F(t))^2}{1+t^2} \diff t 
+        \leq \dfrac{1}{n\cdot\varepsilon}\cdot\int_{\R} \dfrac{1}{1+t^2} \diff t 
+        = \dfrac{\pi}{n\cdot\varepsilon} 
+        \nto 0
+    \]
+\end{loesung}
+
+\begin{loesung}
+    \begin{enumerate}
+        \item Für $T_1$ gilt: 
+        \begin{align*}
+            F_{T_1}(x) 
+            &= \P(T_1 > x) 
+            = \P(\min\{X_1,\dots,X_n\} > \tfrac{n}{x}) \\
+            &= \P(X_i > \tfrac{n}{x} \text{für alle } i=1,\dots,n) 
+            = \P(X_1 > \tfrac{n}{x})^n 
+            = (e^{-\tfrac{x}{n\theta}}\One_{(0,\infty)}(x))^n
+            = e^{-\tfrac{x}{\theta}}\One_{(0,\infty)}(x)
+        \end{align*}
+        Das heißt $T_1\sim\mathrm{Exp}(1/\theta)$. Und damit 
+        \[
+            \E[T_1] = \theta, \quad D^2[T_1] = \theta^2
+        \]
+        Und da $T_2$ einfach unser empirischer Erwartungswert ist folgt 
+        \[
+            \E[T_2] = \E[X_1] = \theta, \quad D^2[T_2] = \dfrac{\theta^2}{n}
+        \]
+        Da die Varianz des 2. Schätzers gegen 0 geht ist dieser zu bevorzugen.
+        \item Da $T_1$ von $n$ unabhängig ist und allgemein nicht konstant $\theta$ ist, kann es nicht gegen 
+        $\theta$ konvergieren.
+    \end{enumerate}
 \end{loesung}
